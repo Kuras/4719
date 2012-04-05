@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="4917.js" type="text/javascript" ></script>
+		<script src="jquery.js" type="text/javascript" ></script>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('input[type=text]').val(0);
+			});
+
+			var log = function(message){
+				$('#log').append(message + "<br/>");
+			};
+
+			function start(){
+				program.length = 0;
+				$('.memory').each(function(){ program.push(parseInt($(this).val()))});
+				cpu.run(log);
+			}
+
+			function clearMemories(){		
+				$('.memory').each(function(){
+					$(this).val(0);
+				});
+			}
+
+			function clearLog(){
+				$('#log').children().each(function(){
+					$(this).remove()
+				});
+				$('#log').text('');
+			}
+		</script>
+
+		<div class="header">
+			<h1 class="center">4917 Microprocessor Emulator</h1>
+		</div>
+		
+		<div class="main-content">
+			<div class="left" style="width:400px;">
+				<p>This is an emulator of the <strong>4719 Microprocessor.</strong></p>
+				<p>You can find more information about the processor at <a href="https://wiki.cse.unsw.edu.au/cs1917cgi/08s1/4719_Microprocessor">UNSW</a>
+			
+				<table>
+					<thead>
+						<tr>
+							<th>Registers</th>
+							<th>Memory</th>
+							<th>Command</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								R0: <input type="text" id="r0" disabled="true" />
+								<br />
+								R1: <input type="text" id="r1" disabled="true" />
+							</td>
+							<td>
+								<input type="text" id="0" class="memory" />		
+								<input type="text" id="1" class="memory"/>					
+								<input type="text" id="2" class="memory"/>					
+								<input type="text" id="3" class="memory"/>	
+								<br />	
+								<input type="text" id="4" class="memory"/>					
+								<input type="text" id="5" class="memory"/>					
+								<input type="text" id="6" class="memory"/>					
+								<input type="text" id="7" class="memory"/>
+								<br />	
+								<input type="text" id="8" class="memory"/>					
+								<input type="text" id="9" class="memory"/>					
+								<input type="text" id="10" class="memory"/>				
+								<input type="text" id="11" class="memory"/>	
+								<br />	
+								<input type="text" id="12" class="memory"/>					
+								<input type="text" id="13" class="memory"/>					
+								<input type="text" id="14" class="memory"/>					
+								<input type="text" id="15" class="memory"/>					
+							</td>
+							<td>
+								<input type="button" value="Start" onclick="javascript:start();"/><br />
+								<input type="button" value="Clear" onclick="javascript:clearMemories();" /><br />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="content">
+					<div class="small">
+						<h2 style="display:inline;">Log</h2>
+						<input type="button" value="Clear log" onclick="javascript:clearLog();" />
+					</div>
+					<p id="log"></p>
+				</div>
+			</div>		
+
+			<div class="right" style="width:500px;">			
+				<div>
+					<h3>Architecture</h3>
+					<p>
+						There are 16 Memory locations and 4 registers<br />
+						Each memory location and register holds a number between 0 and 15<br />
+						all arithmetic operations are mod 16.<br />
+					</p>
+
+					<ul>
+						<li>IP = Instruction Pointer</li>
+						<li>IS = Instruction Store</li>
+						<li>R0 = General Register 0</li>
+						<li>R1 = General Register 1</li>
+					</ul>
+				</div>
+
+				<div>
+					<h3>Instruction Codes</h3>
+					<ul>
+						<li><strong>1-byte1 Instructions</strong></li>
+						<li>0 = Halt</li>
+						<li>1 = Add (R0 = R0 + R1)</li>
+						<li>2 = Subtract (R0 = R0 - R1)</li>
+						<li>3 = Increment R0 (R0 = R0 + 1)</li>
+						<li>4 = Increment R1 (R1 = R1 + 1)</li>
+						<li>5 = Decrement R0 (R0 = R0 - 1)</li>
+						<li>6 = Decrement R1 (R1 = R1 - 1)</li>
+						<li>7 = Ring Bell</li>
+						<li><strong>2-byte Instructions, value of the second byte is called [data]</strong></li>
+						<li>8 = Print [data] (The numerical value of [data] is printed)</li>
+						<li>9 = Load value at address [data] into R0</li>
+						<li>10 = Load value at address [data] into R1</li>
+						<li>11 = Store R0 into address [data]</li>
+						<li>12 = Store R1 into address [data]</li>
+						<li>13 = Jump to address [data]</li>
+						<li>14 = Jump to address [data] if R0 == 0</li>
+						<li>15 = Jump to address [data] if R0 != 0</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix" />
+			</div>
+		</div>
+		<div class="footer">
+			Copyright &copy; Erik Skoglund 2012
+		</div>
+	</body>
+</html>
