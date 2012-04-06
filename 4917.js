@@ -171,7 +171,7 @@ var cpu = {
 
 		// 2-byte instructions
 		print: function(){
-			cpu.log("PRINT: " + program[cpu.ip + 1]);
+			cpu.log("PRINT: " + program[program[cpu.ip + 1]]);
 		},
 		ld_r0: function(){
 			cpu.r0 = program[cpu.ip + 1];
